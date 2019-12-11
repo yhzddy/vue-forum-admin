@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { post } from "../api/login.js";
+import { post } from "../api";
 
 export default {
   name: "login",

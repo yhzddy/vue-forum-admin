@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { Message, Loading } from "element-ui";
+import { Message } from "element-ui";
 
 //loading的实例
 // let loadingInstance = Loading.service({
@@ -19,28 +19,29 @@ const service = axios.create({
 
 /*请求接口前做些数据处理 */
 //请求拦截器
-// service.interceptors.request.use(
-//   config => {
-//     loadingInstance;
-//     //后台需要的相关参数
-//     //发送请求之前判断有无token
-//     //
-//     // if()
-//     return config;
-//   },
-//   error => {
-//     //对请求错误做些什么
-//     Message({
-//       duration: 2000,
-//       showClose: true,
-//       message: "请求失败",
-//       type: "error"
-//     });
-//     return Promise.reject(error);
-//   }
-// );
+service.interceptors.request.use(
+  config => {
+    // loadingInstance;
+    //后台需要的相关参数
+    //发送请求之前判断有无token
+    //
+    // if()
+    config.headers.Authorization = window.localStorage.token;
+    return config;
+  },
+  error => {
+    //对请求错误做些什么
+    Message({
+      duration: 2000,
+      showClose: true,
+      message: "请求失败",
+      type: "error"
+    });
+    return Promise.reject(error);
+  }
+);
 
-// //响应拦截器
+//响应拦截器
 // service.interceptors.response.use(
 //   response => {
 //     if (response.status === 200) {

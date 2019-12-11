@@ -17,8 +17,19 @@ const routes = [
   {
     path: "/home",
     name: "home",
+    redirect: "/welcome",
     component: () => import("../views/Home.vue"),
-    meta: { requireAuth: true }
+    meta: { requireAuth: true },
+    children: [
+      {
+        path: "/welcome",
+        component: () => import("../components/Welcome.vue")
+      },
+      {
+        path: "/users",
+        component: () => import("../components/user/User.vue")
+      }
+    ]
   },
   {
     path: "/kongbai",
@@ -35,7 +46,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   //如果该页面需要认证权限
-  console.log(to);
   const tokenStr = window.localStorage.token;
   if (to.meta.requireAuth) {
     // 如果token存在
