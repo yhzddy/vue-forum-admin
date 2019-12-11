@@ -65,12 +65,17 @@ export default {
   methods: {
     //登录
     login() {
-      this.$refs.loginformref.validate(valid => {
+      this.$refs.loginformref.validate(async valid => {
         if (!valid) return;
-        const res = post("login", this.loginform);
-        // console.log(axios.baseUrl);
-        // console.log(process.env.VUE_APP_URL);
-        console.log(res);
+        //解构赋值重命名 async/await解析简化promise操作
+        const { data: res } = await post("login", this.loginform);
+        if (res.meta.status === 200) {
+          this.$message.success("登录成功");
+          window.localStorage.token = res.data.token;
+          this.$router.push("/home");
+        } else {
+          this.$message.error("登录失败!");
+        }
       });
     },
     //重置表单
