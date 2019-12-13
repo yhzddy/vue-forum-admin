@@ -22,3 +22,25 @@ export function getWithParams(url, params) {
     params: params
   });
 }
+
+export function put(url) {
+  return axios({
+    method: "put",
+    url: url
+  });
+}
+
+export function putWithData(url, data) {
+  return axios({
+    method: "put",
+    url: url,
+    data: data
+  });
+}
+
+export function del(url) {
+  return axios({
+    method: "delete",
+    url: url
+  });
+}
